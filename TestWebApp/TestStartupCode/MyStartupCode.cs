@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using WebActivation;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
-using System.Web.Mvc;
+using WebActivation;
 
-namespace TestLibrary {
+namespace TestWebApp.TestStartupCode {
     public class MyStartupCode : IApplicationStart {
         public void Start() {
             var routes = RouteTable.Routes;
