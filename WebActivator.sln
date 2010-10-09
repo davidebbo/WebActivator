@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebActivation", "WebActivation\WebActivation.csproj", "{339C42C9-C961-4E37-B64E-16F1EF03E4D9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebActivator", "WebActivator\WebActivator.csproj", "{339C42C9-C961-4E37-B64E-16F1EF03E4D9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestLibrary", "TestLibrary\TestLibrary.csproj", "{3D5B026A-2E5F-4C03-8F70-945517215017}"
 EndProject

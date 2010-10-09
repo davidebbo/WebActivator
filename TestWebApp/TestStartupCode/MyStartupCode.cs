@@ -1,10 +1,10 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
-using WebActivation;
+using WebActivator;
 
 namespace TestWebApp.TestStartupCode {
     public class MyStartupCode : IApplicationStart {
-        public void Start() {
+        public void Run() {
             var routes = RouteTable.Routes;
 
             routes.MapRoute(

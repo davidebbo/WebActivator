@@ -47,9 +47,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WebActivation\WebActivation.csproj">
+    <ProjectReference Include="..\WebActivator\WebActivator.csproj">
       <Project>{339C42C9-C961-4E37-B64E-16F1EF03E4D9}</Project>
-      <Name>WebActivation</Name>
+      <Name>WebActivator</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

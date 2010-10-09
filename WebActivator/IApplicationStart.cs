@@ -5,9 +5,9 @@ using System.Text;
 using System.Web;
 using System.ComponentModel.Composition;
 
-namespace WebActivation {
+namespace WebActivator {
     [InheritedExport(typeof(IApplicationStart))]
     public interface IApplicationStart {
-        void Start();
+        void Run();
     }
 }

@@ -8,8 +8,8 @@
     <ProjectGuid>{339C42C9-C961-4E37-B64E-16F1EF03E4D9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WebActivation</RootNamespace>
-    <AssemblyName>WebActivation</AssemblyName>
+    <RootNamespace>WebActivator</RootNamespace>
+    <AssemblyName>WebActivator</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

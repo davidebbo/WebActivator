@@ -9,7 +9,7 @@ using System.ComponentModel.Composition;
 using System.Web;
 using System.IO;
 
-namespace WebActivation {
+namespace WebActivator {
     public class PreApplicationStartCode {
         private static bool _startWasCalled;
 
@@ -28,7 +28,7 @@ namespace WebActivation {
             Compose();
 
             foreach (var appStart in AppStartClasses) {
-                appStart.Start();
+                appStart.Run();
             }
         }
 
