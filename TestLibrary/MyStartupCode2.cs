@@ -7,14 +7,14 @@ using System.Web.Routing;
 using System.Web.Mvc;
 
 namespace TestLibrary {
-    public class MyStartupCode : IApplicationStart {
+    public class MyStartupCode2 : IApplicationStart {
         public void Start() {
             var routes = RouteTable.Routes;
 
             routes.MapRoute(
-                "Foo", // Route name
-                "CoolHome", // URL with parameters
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
+                "Bar", // Route name
+                "CoolAbout", // URL with parameters
+                new { controller = "Home", action = "About", id = UrlParameter.Optional } // Parameter defaults
             );
         }
     }
