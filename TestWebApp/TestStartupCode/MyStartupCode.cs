@@ -1,10 +1,11 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
-using WebActivator;
+
+[assembly: WebActivator.PreApplicationStartMethod(typeof(TestWebApp.TestStartupCode.MyStartupCode), "Start")]
 
 namespace TestWebApp.TestStartupCode {
-    public class MyStartupCode : IApplicationStart {
-        public void Run() {
+    public static class MyStartupCode {
+        public static void Start() {
             var routes = RouteTable.Routes;
 
             routes.MapRoute(
