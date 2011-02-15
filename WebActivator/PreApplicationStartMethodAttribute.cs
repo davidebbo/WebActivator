@@ -8,10 +8,16 @@ namespace WebActivator {
     public sealed class PreApplicationStartMethodAttribute : Attribute {
         private Type _type;
         private string _methodName;
+        private bool _callAfterGlobalAppStart;
 
-        public PreApplicationStartMethodAttribute(Type type, string methodName) {
+        public PreApplicationStartMethodAttribute(Type type, string methodName)
+            : this(type, methodName, false) {
+        }
+
+        public PreApplicationStartMethodAttribute(Type type, string methodName, bool callAfterGlobalAppStart) {
             _type = type;
             _methodName = methodName;
+            _callAfterGlobalAppStart = callAfterGlobalAppStart;
         }
 
         public Type Type {
@@ -23,6 +29,12 @@ namespace WebActivator {
         public string MethodName {
             get {
                 return _methodName;
+            }
+        }
+
+        public bool CallAfterGlobalAppStart {
+            get {
+                return _callAfterGlobalAppStart;
             }
         }
 

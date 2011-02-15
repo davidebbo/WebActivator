@@ -3,6 +3,7 @@ using System.Web.Routing;
 
 [assembly: WebActivator.PreApplicationStartMethod(typeof(TestLibrary.MyStartupCode), "Start")]
 [assembly: WebActivator.PreApplicationStartMethod(typeof(TestLibrary.MyStartupCode), "Start2")]
+[assembly: WebActivator.PreApplicationStartMethod(typeof(TestLibrary.MyStartupCode), "CallMeAfterAppStart", callAfterGlobalAppStart: true)]
 
 namespace TestLibrary {
     static class MyStartupCode {
@@ -24,6 +25,10 @@ namespace TestLibrary {
                 "CoolAbout2", // URL with parameters
                 new { controller = "Home", action = "About", id = UrlParameter.Optional } // Parameter defaults
             );
+        }
+
+        public static void CallMeAfterAppStart() {
+            // This gets called after global.asax's Application_Start
         }
     }
 }
