@@ -10,7 +10,7 @@
         Use the form below to create a new account. 
     </p>
     <p>
-        Passwords are required to be a minimum of <%: View.PasswordLength %> characters in length.
+        Passwords are required to be a minimum of <%: ViewBag.PasswordLength %> characters in length.
     </p>
 
     <% using (Html.BeginForm()) { %>

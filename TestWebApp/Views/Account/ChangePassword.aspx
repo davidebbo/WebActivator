@@ -10,7 +10,7 @@
         Use the form below to change your password. 
     </p>
     <p>
-        New passwords are required to be a minimum of <%: View.PasswordLength %> characters in length.
+        New passwords are required to be a minimum of <%: ViewBag.PasswordLength %> characters in length.
     </p>
 
     <% using (Html.BeginForm()) { %>
