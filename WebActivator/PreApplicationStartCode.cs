@@ -46,7 +46,9 @@ namespace WebActivator {
         }
 
         private static IEnumerable<string> GetAssemblyFiles() {
-            string directory = HostingEnvironment.IsHosted ? HttpRuntime.BinDirectory : Environment.CurrentDirectory;
+            string directory = HostingEnvironment.IsHosted 
+                ? HttpRuntime.BinDirectory 
+                : Path.GetDirectoryName(typeof(PreApplicationStartCode).Assembly.Location);
             return Directory.GetFiles(directory, "*.dll");
         }
 
