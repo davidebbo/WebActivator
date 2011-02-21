@@ -53,7 +53,14 @@ namespace WebActivator {
 
 		private static IEnumerable<string> GetAssemblyFiles()
 		{
-			string directory = HttpContext.Current == null ? Environment.CurrentDirectory : HttpRuntime.BinDirectory;
+			string directory = Environment.CurrentDirectory;
+
+			try
+			{
+				directory = HttpRuntime.BinDirectory;
+			}
+			catch (ArgumentNullException)
+			{ }
 
 			return Directory.GetFiles(directory, "*.dll");
 		}
