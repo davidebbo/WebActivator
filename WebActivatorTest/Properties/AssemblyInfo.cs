@@ -1,17 +1,16 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Web;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("WebActivator")]
-[assembly: AssemblyDescription("A NuGet package that allows other packages to execute some startup code in web apps")]
+[assembly: AssemblyTitle("WebActivatorTest")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("David Ebbo")]
-[assembly: AssemblyProduct("WebActivator")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2010")]
+[assembly: AssemblyCompany("Microsoft")]
+[assembly: AssemblyProduct("WebActivatorTest")]
+[assembly: AssemblyCopyright("Copyright © Microsoft 2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -21,7 +20,7 @@ using System.Web;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("3bc078bd-ade4-4271-964f-1d041508c419")]
+[assembly: Guid("6dc63e28-8799-4072-be84-291e971dd9dd")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -32,8 +31,5 @@ using System.Web;
 //
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
-// [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.2.0.0")]
-[assembly: AssemblyFileVersion("1.2.0.0")]
-
-[assembly: PreApplicationStartMethod(typeof(WebActivator.ActivationManager), "Run")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]

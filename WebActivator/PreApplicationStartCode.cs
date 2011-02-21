@@ -6,12 +6,12 @@ using System.Web;
 using System.Web.Hosting;
 
 namespace WebActivator {
-    public class PreApplicationStartCode {
+    public class ActivationManager {
         static List<PreApplicationStartMethodAttribute> attribsToCallAfterStart = new List<PreApplicationStartMethodAttribute>();
         private static object initLock = new object();
         private static bool hasInited;
 
-        public static void Start() {
+        public static void Run() {
             lock (initLock) {
                 if (!hasInited) {
                     // Go through all the bin assemblies
@@ -46,9 +46,11 @@ namespace WebActivator {
         }
 
         private static IEnumerable<string> GetAssemblyFiles() {
+            // When running under ASP.NET, find assemblies in the bin folder.
+            // Outside of ASP.NET, use whatever folder WebActivator itself is in
             string directory = HostingEnvironment.IsHosted 
                 ? HttpRuntime.BinDirectory 
-                : Path.GetDirectoryName(typeof(PreApplicationStartCode).Assembly.Location);
+                : Path.GetDirectoryName(typeof(ActivationManager).Assembly.Location);
             return Directory.GetFiles(directory, "*.dll");
         }
 

@@ -1,6 +1,7 @@
 glob:bin
 glob:Bin
 glob:obj
+glob:TestResults
 glob:*.user
 glob:*.patch
 glob:*.hg
