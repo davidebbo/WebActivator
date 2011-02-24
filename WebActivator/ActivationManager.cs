@@ -16,8 +16,13 @@ namespace WebActivator {
             if (!hasInited) {
                 RunPreStartMethods();
 
-                // Register our module to handle any Post Start methods
-                Microsoft.Web.Infrastructure.DynamicModuleHelper.DynamicModuleUtility.RegisterModule(typeof(StartMethodCallingModule));
+                // Register our module to handle any Post Start methods. But outside of ASP.NET, just run them now
+                if (HostingEnvironment.IsHosted) {
+                    Microsoft.Web.Infrastructure.DynamicModuleHelper.DynamicModuleUtility.RegisterModule(typeof(StartMethodCallingModule));
+                }
+                else {
+                    RunPostStartMethods();
+                }
 
                 hasInited = true;
             }
