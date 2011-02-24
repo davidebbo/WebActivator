@@ -3,47 +3,26 @@ using System.Web.Routing;
 
 [assembly: WebActivator.PreApplicationStartMethod(typeof(TestLibrary.MyStartupCode), "Start")]
 [assembly: WebActivator.PreApplicationStartMethod(typeof(TestLibrary.MyStartupCode), "Start2")]
-[assembly: WebActivator.PreApplicationStartMethod(typeof(TestLibrary.MyStartupCode), "CallMeAfterAppStart", callAfterGlobalAppStart: true)]
+[assembly: WebActivator.PostApplicationStartMethod(typeof(TestLibrary.MyStartupCode), "CallMeAfterAppStart")]
 
 namespace TestLibrary {
     public static class MyStartupCode {
-        private static bool _startCalled;
-        private static bool _start2Called;
-        private static bool _callMeAfterAppStartCalled;
+        public static bool StartCalled { get; set; }
+        public static bool Start2Called { get; set; }
+        public static bool CallMeAfterAppStartCalled { get; set; }
 
         internal static void Start() {
-            _startCalled = true;
-
-            var routes = RouteTable.Routes;
-
-            routes.MapRoute(
-                "Bar", // Route name
-                "CoolAbout", // URL with parameters
-                new { controller = "Home", action = "About", id = UrlParameter.Optional } // Parameter defaults
-            );
+            StartCalled = true;
         }
 
         public static void Start2() {
-            _start2Called = true;
-
-            var routes = RouteTable.Routes;
-
-            routes.MapRoute(
-                "Bar2", // Route name
-                "CoolAbout2", // URL with parameters
-                new { controller = "Home", action = "About", id = UrlParameter.Optional } // Parameter defaults
-            );
+            Start2Called = true;
         }
 
         public static void CallMeAfterAppStart() {
             // This gets called after global.asax's Application_Start
 
-            _callMeAfterAppStartCalled = true;
-        }
-
-        // Called by the unit test
-        public static bool AllStartMethodsWereCalled() {
-            return _startCalled && _start2Called && _callMeAfterAppStartCalled;
+            CallMeAfterAppStartCalled = true;
         }
     }
 }

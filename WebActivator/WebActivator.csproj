@@ -43,11 +43,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActivationManager.cs" />
+    <Compile Include="AssemblyExtensions.cs" />
+    <Compile Include="PostApplicationStartMethodAttribute.cs" />
     <Compile Include="PreApplicationStartMethodAttribute.cs" />
+    <Compile Include="BaseApplicationStartMethodAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="WebActivator.nuspec" />
+    <None Include="WebActivator.nuspec">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild">

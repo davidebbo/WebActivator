@@ -5,14 +5,10 @@ using System.Web.Routing;
 
 namespace TestWebApp.TestStartupCode {
     public static class MyStartupCode {
-        public static void Start() {
-            var routes = RouteTable.Routes;
+        public static bool StartCalled { get; set; }
 
-            routes.MapRoute(
-                "Foo", // Route name
-                "CoolHome", // URL with parameters
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
-            );
+        public static void Start() {
+            StartCalled = true;
         }
     }
 }
