@@ -10,7 +10,7 @@ using System;
 namespace WebActivator {
     public class ActivationManager {
         private static bool hasInited;
-        private static IEnumerable<Assembly> _assemblies;
+        private static List<Assembly> _assemblies;
 
         public static void Run() {
             if (!hasInited) {
@@ -32,7 +32,15 @@ namespace WebActivator {
             get {
                 if (_assemblies == null) {
                     // Cache the list of relevant assemblies, since we need it for both Pre and Post
-                    _assemblies = GetAssemblyFiles().Select(file => Assembly.LoadFrom(file)).ToList();
+                    _assemblies = new List<Assembly>();
+                    foreach (var assemblyFile in GetAssemblyFiles()) {
+                        try {
+                            // Ignore assemblies we can't load. They could be native, etc...
+                            _assemblies.Add(Assembly.LoadFrom(assemblyFile));
+                        }
+                        catch {
+                        }
+                    }
                 }
 
                 return _assemblies;
