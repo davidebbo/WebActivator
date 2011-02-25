@@ -60,17 +60,19 @@ namespace WebActivator {
         }
 
         private static void ProcessAppCodeAssemblies() {
-            // Go through all the App_Code assemblies
-            foreach (var assembly in BuildManager.CodeAssemblies.OfType<Assembly>()) {
-                // Fail if there are any PreStart attribs in App_Code as we can't call them since App_Code is not even compiled before App_Start.
-                foreach (PreApplicationStartMethodAttribute preStartAttrib in assembly.GetPreAppStartAttributes()) {
-                    throw new Exception(String.Format(
-                        "PreApplicationStartMethodAttribute cannot be used in AppCode (for method {0}.{1}). Please use PostApplicationStartMethodAttribute instead.",
-                        preStartAttrib.Type.FullName, preStartAttrib.MethodName));
-                }
+            if (BuildManager.CodeAssemblies != null) {
+                // Go through all the App_Code assemblies
+                foreach (var assembly in BuildManager.CodeAssemblies.OfType<Assembly>()) {
+                    // Fail if there are any PreStart attribs in App_Code as we can't call them since App_Code is not even compiled before App_Start.
+                    foreach (PreApplicationStartMethodAttribute preStartAttrib in assembly.GetPreAppStartAttributes()) {
+                        throw new Exception(String.Format(
+                            "PreApplicationStartMethodAttribute cannot be used in AppCode (for method {0}.{1}). Please use PostApplicationStartMethodAttribute instead.",
+                            preStartAttrib.Type.FullName, preStartAttrib.MethodName));
+                    }
 
-                foreach (PostApplicationStartMethodAttribute postStartAttrib in assembly.GetPostAppStartAttributes()) {
-                    postStartAttrib.InvokeMethod();
+                    foreach (PostApplicationStartMethodAttribute postStartAttrib in assembly.GetPostAppStartAttributes()) {
+                        postStartAttrib.InvokeMethod();
+                    }
                 }
             }
         }
