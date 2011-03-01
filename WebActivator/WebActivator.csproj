@@ -44,9 +44,10 @@
   <ItemGroup>
     <Compile Include="ActivationManager.cs" />
     <Compile Include="AssemblyExtensions.cs" />
+    <Compile Include="ApplicationShutdownMethodAttribute.cs" />
     <Compile Include="PostApplicationStartMethodAttribute.cs" />
     <Compile Include="PreApplicationStartMethodAttribute.cs" />
-    <Compile Include="BaseApplicationStartMethodAttribute.cs" />
+    <Compile Include="BaseActivationMethodAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

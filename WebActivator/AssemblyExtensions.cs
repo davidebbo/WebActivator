@@ -1,24 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Reflection;
 
 namespace WebActivator {
     static class AssemblyExtensions {
-        public static IEnumerable<PreApplicationStartMethodAttribute> GetPreAppStartAttributes(this Assembly assembly) {
-            // Go through all the PreApplicationStartMethodAttribute attributes
-            // Note that this is *our* attribute, not the System.Web namesake
-
+        // Return all the attributes of a given type from an assembly
+        public static IEnumerable<T> GetActivationAttributes<T>(this Assembly assembly) where T : BaseActivationMethodAttribute {
             return assembly.GetCustomAttributes(
-                typeof(PreApplicationStartMethodAttribute),
-                inherit: false).OfType<PreApplicationStartMethodAttribute>();
-        }
-
-        public static IEnumerable<PostApplicationStartMethodAttribute> GetPostAppStartAttributes(this Assembly assembly) {
-            return assembly.GetCustomAttributes(
-                typeof(PostApplicationStartMethodAttribute),
-                inherit: false).OfType<PostApplicationStartMethodAttribute>();
+                typeof(T),
+                inherit: false).OfType<T>();
         }
     }
 }

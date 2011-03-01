@@ -36,5 +36,14 @@ namespace WebActivatorTest {
             Assert.IsFalse(TestLibrary.MyStartupCode.Start2Called);
             Assert.IsTrue(TestLibrary.MyStartupCode.CallMeAfterAppStartCalled);
         }
+
+        [TestMethod]
+        public void TestWebActivatorShutdownMethodsGetCalled() {
+            MyStartupCode.CallMeWhenAppEndsCalled = false;
+
+            WebActivator.ActivationManager.RunShutdownMethods();
+
+            Assert.IsTrue(MyStartupCode.CallMeWhenAppEndsCalled);
+        }
     }
 }

@@ -2,14 +2,13 @@
 using System.Reflection;
 
 namespace WebActivator {
-    // This attribute is similar to its System.Web namesake, except that
-    // it can be used multiple times on an assembly.
+    // Base class of all the activation attributes
     [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
-    public abstract class BaseApplicationStartMethodAttribute : Attribute {
+    public abstract class BaseActivationMethodAttribute : Attribute {
         private Type _type;
         private string _methodName;
 
-        public BaseApplicationStartMethodAttribute(Type type, string methodName) {
+        public BaseActivationMethodAttribute(Type type, string methodName) {
             _type = type;
             _methodName = methodName;
         }

@@ -8,7 +8,7 @@
 <%
     if (!TestLibrary.MyStartupCode.StartCalled || !TestLibrary.MyStartupCode.Start2Called ||
         !TestLibrary.MyStartupCode.CallMeAfterAppStartCalled || !TestWebApp.TestStartupCode.MyStartupCode.StartCalled ||
-        !AppCodeStartupCode.Called) {
+        !AppCodeStartupCode.StartCalled || TestLibrary.MyStartupCode.CallMeWhenAppEndsCalled) {
         throw new Exception("Startup methods were not correctly called");
     }
 %>

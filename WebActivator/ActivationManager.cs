@@ -1,19 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Compilation;
 using System.Web.Hosting;
-using System;
 
 namespace WebActivator {
     public class ActivationManager {
-        private static bool hasInited;
+        private static bool _hasInited;
         private static List<Assembly> _assemblies;
 
         public static void Run() {
-            if (!hasInited) {
+            if (!_hasInited) {
                 RunPreStartMethods();
 
                 // Register our module to handle any Post Start methods. But outside of ASP.NET, just run them now
@@ -24,7 +24,7 @@ namespace WebActivator {
                     RunPostStartMethods();
                 }
 
-                hasInited = true;
+                _hasInited = true;
             }
         }
 
@@ -47,44 +47,6 @@ namespace WebActivator {
             }
         }
 
-        public static void RunPreStartMethods() {
-            // Go through all the relevant assemblies and run the PreStart logic
-            foreach (var assembly in Assemblies) {
-                foreach (PreApplicationStartMethodAttribute preStartAttrib in assembly.GetPreAppStartAttributes()) {
-                    // Invoke the method that the attribute points to
-                    preStartAttrib.InvokeMethod();
-                }
-            }
-        }
-
-        public static void RunPostStartMethods() {
-            // Go through all the relevant assemblies and run the PostStart logic
-            foreach (var assembly in Assemblies) {
-                foreach (PostApplicationStartMethodAttribute postStartAttrib in assembly.GetPostAppStartAttributes()) {
-                    // Invoke the method that the attribute points to
-                    postStartAttrib.InvokeMethod();
-                }
-            }
-        }
-
-        private static void ProcessAppCodeAssemblies() {
-            if (BuildManager.CodeAssemblies != null) {
-                // Go through all the App_Code assemblies
-                foreach (var assembly in BuildManager.CodeAssemblies.OfType<Assembly>()) {
-                    // Fail if there are any PreStart attribs in App_Code as we can't call them since App_Code is not even compiled before App_Start.
-                    foreach (PreApplicationStartMethodAttribute preStartAttrib in assembly.GetPreAppStartAttributes()) {
-                        throw new Exception(String.Format(
-                            "PreApplicationStartMethodAttribute cannot be used in AppCode (for method {0}.{1}). Please use PostApplicationStartMethodAttribute instead.",
-                            preStartAttrib.Type.FullName, preStartAttrib.MethodName));
-                    }
-
-                    foreach (PostApplicationStartMethodAttribute postStartAttrib in assembly.GetPostAppStartAttributes()) {
-                        postStartAttrib.InvokeMethod();
-                    }
-                }
-            }
-        }
-
         private static IEnumerable<string> GetAssemblyFiles() {
             // When running under ASP.NET, find assemblies in the bin folder.
             // Outside of ASP.NET, use whatever folder WebActivator itself is in
@@ -94,26 +56,61 @@ namespace WebActivator {
             return Directory.GetFiles(directory, "*.dll");
         }
 
+        // Return all the App_Code assemblies
+        private static IEnumerable<Assembly> AppCodeAssemblies {
+            get {
+                // Return an empty list if we;re not hosted or there aren't any
+                if (!HostingEnvironment.IsHosted || !_hasInited || BuildManager.CodeAssemblies == null) {
+                    return Enumerable.Empty<Assembly>();
+                }
+
+                return BuildManager.CodeAssemblies.OfType<Assembly>();
+            }
+        }
+
+        public static void RunPreStartMethods() {
+            RunActivationMethods<PreApplicationStartMethodAttribute>();
+        }
+
+        public static void RunPostStartMethods() {
+            RunActivationMethods<PostApplicationStartMethodAttribute>();
+        }
+
+        public static void RunShutdownMethods() {
+            RunActivationMethods<ApplicationShutdownMethodAttribute>();
+        }
+
+        // Call the relevant activation method from all assemblies
+        private static void RunActivationMethods<T>() where T : BaseActivationMethodAttribute {
+            foreach (var assembly in Assemblies.Concat(AppCodeAssemblies)) {
+                foreach (BaseActivationMethodAttribute activationAttrib in assembly.GetActivationAttributes<T>()) {
+                    activationAttrib.InvokeMethod();
+                }
+            }
+        }
+
         class StartMethodCallingModule : IHttpModule {
-            private static object initLock = new object();
-            private static bool hasInited;
+            private static object _lock = new object();
+            private static int _initializedModuleCount;
 
             public void Init(HttpApplication context) {
 
-                // Make sure we only call the methods once per app domain
-                lock (initLock) {
-                    if (!hasInited) {
+                lock (_lock) {
+                    // Keep track of the number of modules initialized and
+                    // make sure we only call the post start methods once per app domain
+                    if (_initializedModuleCount++ == 0) {
                         RunPostStartMethods();
-
-                        // Process any attribute found in App_Code.
-                        ProcessAppCodeAssemblies();
-
-                        hasInited = true;
                     }
                 }
             }
 
             public void Dispose() {
+                lock (_lock) {
+                    // Call the shutdown methods when the last module is disposed
+                    if (--_initializedModuleCount == 0) {
+                        RunShutdownMethods();
+                    }
+                }
             }
         }
     }
