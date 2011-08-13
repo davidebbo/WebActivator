@@ -84,7 +84,13 @@ namespace WebActivator {
         private static void RunActivationMethods<T>() where T : BaseActivationMethodAttribute {
             foreach (var assembly in Assemblies.Concat(AppCodeAssemblies)) {
                 foreach (BaseActivationMethodAttribute activationAttrib in assembly.GetActivationAttributes<T>()) {
-                    activationAttrib.InvokeMethod();
+                    try {
+                        activationAttrib.InvokeMethod();
+                    }
+                    catch (TargetInvocationException ex) {
+                        // Throw the relevant exception
+                        throw ex.GetBaseException();
+                    }
                 }
             }
         }
