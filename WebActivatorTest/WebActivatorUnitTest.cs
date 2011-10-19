@@ -45,5 +45,13 @@ namespace WebActivatorTest {
 
             Assert.IsTrue(MyStartupCode.CallMeWhenAppEndsCalled);
         }
+
+		[TestMethod]
+		public void  TestWebActivatorMethodsCalledBySpecifiedOrder()
+		{
+			WebActivator.ActivationManager.Run();
+			WebActivator.ActivationManager.RunShutdownMethods();
+			Assert.AreEqual("StartStart3Start2CallMeAfterAppStartCallMeWhenAppEnds", MyStartupCode.ExecutedOrder);
+		}
     }
 }

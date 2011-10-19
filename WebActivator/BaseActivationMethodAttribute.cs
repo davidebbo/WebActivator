@@ -25,6 +25,9 @@ namespace WebActivator {
             }
         }
 
+		public byte Order { get; set; }
+
+
         public void InvokeMethod() {
             // Get the method
             MethodInfo method = Type.GetMethod(

@@ -83,7 +83,7 @@ namespace WebActivator {
         // Call the relevant activation method from all assemblies
         private static void RunActivationMethods<T>() where T : BaseActivationMethodAttribute {
             foreach (var assembly in Assemblies.Concat(AppCodeAssemblies)) {
-                foreach (BaseActivationMethodAttribute activationAttrib in assembly.GetActivationAttributes<T>()) {
+                foreach (BaseActivationMethodAttribute activationAttrib in assembly.GetActivationAttributes<T>().OrderBy(att=>att.Order)) {
                     activationAttrib.InvokeMethod();
                 }
             }
