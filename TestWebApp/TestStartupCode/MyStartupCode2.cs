@@ -10,7 +10,7 @@ namespace TestWebApp.TestStartupCode {
 
         public static void Start() {
             StartCalled = true;
-			Debug.WriteLine("MyStartUpCode2");
+            Debug.WriteLine("MyStartUpCode2");
         }
     }
 }

@@ -11,9 +11,9 @@ using System;
 
 namespace TestLibrary {
     public static class MyStartupCode {
-       
-		public static string ExecutedOrder="";
-		public static bool StartCalled { get; set; }
+
+        public static string ExecutedOrder = "";
+        public static bool StartCalled { get; set; }
         public static bool Start2Called { get; set; }
         public static bool CallMeAfterAppStartCalled { get; set; }
         public static bool CallMeWhenAppEndsCalled { get; set; }
@@ -24,7 +24,7 @@ namespace TestLibrary {
             }
 
             StartCalled = true;
-        	ExecutedOrder += "Start";
+            ExecutedOrder += "Start";
         }
 
         public static void Start2() {
@@ -33,13 +33,12 @@ namespace TestLibrary {
             }
 
             Start2Called = true;
-			ExecutedOrder += "Start2";
+            ExecutedOrder += "Start2";
         }
 
-		public static void Start3()
-		{
-			ExecutedOrder += "Start3";
-		}
+        public static void Start3() {
+            ExecutedOrder += "Start3";
+        }
 
         public static void CallMeAfterAppStart() {
             // This gets called after global.asax's Application_Start
@@ -49,7 +48,7 @@ namespace TestLibrary {
             }
 
             CallMeAfterAppStartCalled = true;
-			ExecutedOrder += "CallMeAfterAppStart";
+            ExecutedOrder += "CallMeAfterAppStart";
         }
 
         public static void CallMeWhenAppEnds() {
