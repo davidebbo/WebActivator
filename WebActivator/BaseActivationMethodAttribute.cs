@@ -25,7 +25,7 @@ namespace WebActivator {
             }
         }
 
-        public byte Order { get; set; }
+        public int Order { get; set; }
 
 
         public void InvokeMethod() {

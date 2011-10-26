@@ -58,8 +58,8 @@ namespace TestLibrary {
                 throw new Exception("Unexpected second call to CallMeWhenAppEnds");
             }
 
-            CallMeWhenAppEndsCalled = true;			
-			ExecutedOrder += "CallMeWhenAppEnds";
+            CallMeWhenAppEndsCalled = true;
+            ExecutedOrder += "CallMeWhenAppEnds";
         }
     }
 }
