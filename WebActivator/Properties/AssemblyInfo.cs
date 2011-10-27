@@ -23,6 +23,8 @@ using System.Web;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("3bc078bd-ade4-4271-964f-1d041508c419")]
 
+[assembly: InternalsVisibleTo("WebActivatorTest")]
+
 // Version information for an assembly consists of the following four values:
 //
 //      Major Version

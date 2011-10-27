@@ -14,6 +14,13 @@ namespace WebActivator
         private static bool _hasInited;
         private static List<Assembly> _assemblies;
 
+        // For unit test purpose
+        internal static void Reset()
+        {
+            _hasInited = false;
+            _assemblies = null;
+        }
+
         public static void Run()
         {
             if (!_hasInited)
