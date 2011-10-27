@@ -9,8 +9,10 @@ using System;
 [assembly: WebActivator.PostApplicationStartMethod(typeof(TestLibrary.MyStartupCode), "CallMeAfterAppStart")]
 [assembly: WebActivator.ApplicationShutdownMethod(typeof(TestLibrary.MyStartupCode), "CallMeWhenAppEnds")]
 
-namespace TestLibrary {
-    public static class MyStartupCode {
+namespace TestLibrary
+{
+    public static class MyStartupCode
+    {
 
         public static string ExecutedOrder = "";
         public static bool StartCalled { get; set; }
@@ -18,8 +20,10 @@ namespace TestLibrary {
         public static bool CallMeAfterAppStartCalled { get; set; }
         public static bool CallMeWhenAppEndsCalled { get; set; }
 
-        internal static void Start() {
-            if (StartCalled) {
+        internal static void Start()
+        {
+            if (StartCalled)
+            {
                 throw new Exception("Unexpected second call to Start");
             }
 
@@ -27,8 +31,10 @@ namespace TestLibrary {
             ExecutedOrder += "Start";
         }
 
-        public static void Start2() {
-            if (Start2Called) {
+        public static void Start2()
+        {
+            if (Start2Called)
+            {
                 throw new Exception("Unexpected second call to Start2");
             }
 
@@ -36,14 +42,17 @@ namespace TestLibrary {
             ExecutedOrder += "Start2";
         }
 
-        public static void Start3() {
+        public static void Start3()
+        {
             ExecutedOrder += "Start3";
         }
 
-        public static void CallMeAfterAppStart() {
+        public static void CallMeAfterAppStart()
+        {
             // This gets called after global.asax's Application_Start
 
-            if (CallMeAfterAppStartCalled) {
+            if (CallMeAfterAppStartCalled)
+            {
                 throw new Exception("Unexpected second call to CallMeAfterAppStart");
             }
 
@@ -51,10 +60,12 @@ namespace TestLibrary {
             ExecutedOrder += "CallMeAfterAppStart";
         }
 
-        public static void CallMeWhenAppEnds() {
+        public static void CallMeWhenAppEnds()
+        {
             // This gets called when the app shuts down
 
-            if (CallMeWhenAppEndsCalled) {
+            if (CallMeWhenAppEndsCalled)
+            {
                 throw new Exception("Unexpected second call to CallMeWhenAppEnds");
             }
 

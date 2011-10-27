@@ -1,11 +1,14 @@
 ﻿using System;
 
-namespace WebActivator {
+namespace WebActivator
+{
     // Same as PreApplicationStartMethodAttribute, but for methods to be called when the app shuts down
     [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
-    public sealed class ApplicationShutdownMethodAttribute : BaseActivationMethodAttribute {
+    public sealed class ApplicationShutdownMethodAttribute : BaseActivationMethodAttribute
+    {
         public ApplicationShutdownMethodAttribute(Type type, string methodName)
-            : base(type, methodName) {
+            : base(type, methodName)
+        {
         }
     }
 }
