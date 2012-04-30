@@ -7,6 +7,6 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <licenseUrl>http://www.opensource.org/licenses/ms-pl</licenseUrl>
-    <projectUrl>https://bitbucket.org/davidebbo/webactivator</projectUrl>
+    <projectUrl>https://github.com/davidebbo/WebActivator</projectUrl>
   </metadata>
 </package>
