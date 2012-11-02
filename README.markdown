@@ -81,6 +81,14 @@ Note that normally you would not call these methods explicitly from a web applic
 
 ## Change history
 
+### 1.5.2 (11/2/2012)
+
+* Only difference with 1.5.1 is the corrected project site link so it points to github instead of the old bitbuck
+
+### 1.5.1 (5/31/2012)
+
+* Rerelease after moving from bitbucket to github
+
 ### 1.5 (10/26/2011)
 
 * Added ability to order method invocations within one assembly
