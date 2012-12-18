@@ -48,12 +48,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebActivatorConfigUnitTest.cs" />
+    <Compile Include="WebActivatorTestBase.cs" />
     <Compile Include="WebActivatorUnitTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TestLibrary\TestLibrary.csproj">
       <Project>{3D5B026A-2E5F-4C03-8F70-945517215017}</Project>
       <Name>TestLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestWebApp\TestWebApp.csproj">
+      <Project>{beae1b92-b497-4179-8ec5-bcabce303078}</Project>
+      <Name>TestWebApp</Name>
     </ProjectReference>
     <ProjectReference Include="..\WebActivator\WebActivator.csproj">
       <Project>{339C42C9-C961-4E37-B64E-16F1EF03E4D9}</Project>

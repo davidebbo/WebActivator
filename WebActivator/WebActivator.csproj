@@ -50,11 +50,12 @@
   <ItemGroup>
     <Compile Include="ActivationManager.cs" />
     <Compile Include="AssemblyExtensions.cs" />
-    <Compile Include="ApplicationShutdownMethodAttribute.cs" />
-    <Compile Include="PostApplicationStartMethodAttribute.cs" />
-    <Compile Include="PreApplicationStartMethodAttribute.cs" />
-    <Compile Include="BaseActivationMethodAttribute.cs" />
+    <Compile Include="Attributes.cs" />
+    <Compile Include="ComparisonHelper.cs" />
+    <Compile Include="Config.cs" />
+    <Compile Include="EPriority.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebActivatorHttpModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

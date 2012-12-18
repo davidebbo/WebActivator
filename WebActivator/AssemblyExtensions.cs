@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -12,6 +13,20 @@ namespace WebActivator
             return assembly.GetCustomAttributes(
                 typeof(T),
                 inherit: false).OfType<T>();
+        }
+
+        public static IEnumerable<Config> GetConfigTasks(this Assembly assembly)
+        {
+            List<Config> result = new List<Config>();
+            foreach (Type t in assembly.GetTypes())
+            {
+                if (t.IsSubclassOf(typeof(Config)))
+                {
+                    Config instance = (Config)Activator.CreateInstance(t);
+                    result.Add(instance);
+                }
+            }
+            return result;
         }
     }
 }
