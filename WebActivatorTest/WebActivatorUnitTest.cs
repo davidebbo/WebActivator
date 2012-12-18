@@ -4,18 +4,8 @@ using TestLibrary;
 namespace WebActivatorTest
 {
     [TestClass]
-    public class WebActivatorUnitTest
+    public class WebActivatorUnitTest : WebActivatorTestBase
     {
-        [TestInitialize]
-        public void TestInit()
-        {
-            WebActivator.ActivationManager.Reset();
-            MyStartupCode.StartCalled = false;
-            MyStartupCode.Start2Called = false;
-            MyStartupCode.CallMeAfterAppStartCalled = false;
-            MyStartupCode.CallMeWhenAppEndsCalled = false;
-        }
-
         [TestMethod]
         public void TestWebActivatorAllStartMethodsGetCalled()
         {

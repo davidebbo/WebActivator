@@ -20,6 +20,12 @@ namespace TestLibrary
         public static bool CallMeAfterAppStartCalled { get; set; }
         public static bool CallMeWhenAppEndsCalled { get; set; }
 
+        public static string ConfigExecutedOrder = "";
+        public static bool ConfigStartCalled { get; set; }
+        public static bool ConfigStart2Called { get; set; }
+        public static bool ConfigCallMeAfterAppStartCalled { get; set; }
+        public static bool ConfigCallMeWhenAppEndsCalled { get; set; }
+
         internal static void Start()
         {
             if (StartCalled)
