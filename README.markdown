@@ -81,6 +81,14 @@ Note that normally you would not call these methods explicitly from a web applic
 
 ## Change history
 
+### 1.5.3 (12/20/2012)
+
+Change contributed by @gdoten
+
+* Look in CodeBase rather than Location directory for assemblies to scan for attirbutes.
+* Make Assembly.LoadFrom exception handling a little more specific.
+* Fix to unit testing ExecuteOrder when all test are run at the same time.
+
 ### 1.5.2 (11/2/2012)
 
 * Only difference with 1.5.1 is the corrected project site link so it points to github instead of the old bitbuck
