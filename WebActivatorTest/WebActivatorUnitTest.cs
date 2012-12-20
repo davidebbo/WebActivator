@@ -10,6 +10,7 @@ namespace WebActivatorTest
         public void TestInit()
         {
             WebActivator.ActivationManager.Reset();
+			MyStartupCode.ExecutedOrder = "";
             MyStartupCode.StartCalled = false;
             MyStartupCode.Start2Called = false;
             MyStartupCode.CallMeAfterAppStartCalled = false;
