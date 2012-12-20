@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Security;
 using System.Web;
 using System.Web.Compilation;
 using System.Web.Hosting;
@@ -56,9 +58,12 @@ namespace WebActivator
                             // Ignore assemblies we can't load. They could be native, etc...
                             _assemblies.Add(Assembly.LoadFrom(assemblyFile));
                         }
-                        catch
-                        {
-                        }
+						catch (Win32Exception) { }
+						catch (ArgumentException) { }
+						catch (FileNotFoundException) { }
+						catch (PathTooLongException) { }
+						catch (BadImageFormatException) { }
+						catch (SecurityException) { }
                     }
                 }
 
@@ -72,7 +77,7 @@ namespace WebActivator
             // Outside of ASP.NET, use whatever folder WebActivator itself is in
             string directory = HostingEnvironment.IsHosted
                 ? HttpRuntime.BinDirectory
-                : Path.GetDirectoryName(typeof(ActivationManager).Assembly.Location);
+				: Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
             return Directory.GetFiles(directory, "*.dll");
         }
 
