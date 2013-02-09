@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using System.Web.Routing;
 
-[assembly: WebActivator.PreApplicationStartMethod(typeof(TestWebApp.TestStartupCode.MyStartupCode2), "Start",Order = 0)]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(TestWebApp.TestStartupCode.MyStartupCode2), "Start", Order = 0)]
 
 namespace TestWebApp.TestStartupCode
 {

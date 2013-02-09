@@ -9,7 +9,7 @@ using System.Web;
 using System.Web.Compilation;
 using System.Web.Hosting;
 
-namespace WebActivator
+namespace WebActivatorEx
 {
     public class ActivationManager
     {
@@ -17,7 +17,7 @@ namespace WebActivator
         private static List<Assembly> _assemblies;
 
         // For unit test purpose
-        internal static void Reset()
+        public static void Reset()
         {
             _hasInited = false;
             _assemblies = null;

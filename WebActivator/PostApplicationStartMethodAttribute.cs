@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WebActivator
+namespace WebActivatorEx
 {
     // Same as PreApplicationStartMethodAttribute, but for methods to be called after App_Start
     [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]

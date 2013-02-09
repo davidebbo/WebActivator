@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace WebActivator
+namespace WebActivatorEx
 {
     static class AssemblyExtensions
     {

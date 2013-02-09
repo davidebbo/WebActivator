@@ -8,8 +8,8 @@
     <ProjectGuid>{339C42C9-C961-4E37-B64E-16F1EF03E4D9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WebActivator</RootNamespace>
-    <AssemblyName>WebActivator</AssemblyName>
+    <RootNamespace>WebActivatorEx</RootNamespace>
+    <AssemblyName>WebActivatorEx</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -64,11 +64,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+  <!-- Sign the assembly if the environment variable is set -->
+  <PropertyGroup Condition="'$(PRIVATE_SNK_FILE)' != ''">
+    <AssemblyOriginatorKeyFile>$(PRIVATE_SNK_FILE)</AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>false</DelaySign>
+  </PropertyGroup>
 </Project>

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WebActivator
+namespace WebActivatorEx
 {
     // This attribute is similar to its System.Web namesake, except that
     // it can be used multiple times on an assembly.

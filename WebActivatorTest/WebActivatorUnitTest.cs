@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestLibrary;
+using WebActivatorEx;
 
 namespace WebActivatorTest
 {
@@ -9,7 +10,7 @@ namespace WebActivatorTest
         [TestInitialize]
         public void TestInit()
         {
-            WebActivator.ActivationManager.Reset();
+            ActivationManager.Reset();
             MyStartupCode.ExecutedOrder = "";
             MyStartupCode.StartCalled = false;
             MyStartupCode.Start2Called = false;
@@ -20,7 +21,7 @@ namespace WebActivatorTest
         [TestMethod]
         public void TestWebActivatorAllStartMethodsGetCalled()
         {
-            WebActivator.ActivationManager.Run();
+            ActivationManager.Run();
 
             Assert.IsTrue(TestLibrary.MyStartupCode.StartCalled);
             Assert.IsTrue(TestLibrary.MyStartupCode.Start2Called);
@@ -30,7 +31,7 @@ namespace WebActivatorTest
         [TestMethod]
         public void TestWebActivatorPreStartMethodsGetCalled()
         {
-            WebActivator.ActivationManager.RunPreStartMethods();
+            ActivationManager.RunPreStartMethods();
 
             Assert.IsTrue(TestLibrary.MyStartupCode.StartCalled);
             Assert.IsTrue(TestLibrary.MyStartupCode.Start2Called);
@@ -40,7 +41,7 @@ namespace WebActivatorTest
         [TestMethod]
         public void TestWebActivatorPostStartMethodsGetCalled()
         {
-            WebActivator.ActivationManager.RunPostStartMethods();
+            ActivationManager.RunPostStartMethods();
 
             Assert.IsFalse(TestLibrary.MyStartupCode.StartCalled);
             Assert.IsFalse(TestLibrary.MyStartupCode.Start2Called);
@@ -50,7 +51,7 @@ namespace WebActivatorTest
         [TestMethod]
         public void TestWebActivatorShutdownMethodsGetCalled()
         {
-            WebActivator.ActivationManager.RunShutdownMethods();
+            ActivationManager.RunShutdownMethods();
 
             Assert.IsTrue(MyStartupCode.CallMeWhenAppEndsCalled);
         }
@@ -58,8 +59,8 @@ namespace WebActivatorTest
         [TestMethod]
         public void TestWebActivatorMethodsCalledBySpecifiedOrder()
         {
-            WebActivator.ActivationManager.Run();
-            WebActivator.ActivationManager.RunShutdownMethods();
+            ActivationManager.Run();
+            ActivationManager.RunShutdownMethods();
             Assert.AreEqual("StartStart3Start2CallMeAfterAppStartCallMeWhenAppEnds", MyStartupCode.ExecutedOrder);
         }
     }

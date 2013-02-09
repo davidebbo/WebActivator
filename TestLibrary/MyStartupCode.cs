@@ -2,12 +2,13 @@
 using System.Web.Mvc;
 using System.Web.Routing;
 using System;
+using WebActivatorEx;
 
-[assembly: WebActivator.PreApplicationStartMethod(typeof(TestLibrary.MyStartupCode), "Start")]
-[assembly: WebActivator.PreApplicationStartMethod(typeof(TestLibrary.MyStartupCode), "Start2",Order = 2)]
-[assembly: WebActivator.PreApplicationStartMethod(typeof(TestLibrary.MyStartupCode), "Start3",Order = 1)]
-[assembly: WebActivator.PostApplicationStartMethod(typeof(TestLibrary.MyStartupCode), "CallMeAfterAppStart")]
-[assembly: WebActivator.ApplicationShutdownMethod(typeof(TestLibrary.MyStartupCode), "CallMeWhenAppEnds")]
+[assembly: PreApplicationStartMethod(typeof(TestLibrary.MyStartupCode), "Start")]
+[assembly: PreApplicationStartMethod(typeof(TestLibrary.MyStartupCode), "Start2", Order = 2)]
+[assembly: PreApplicationStartMethod(typeof(TestLibrary.MyStartupCode), "Start3", Order = 1)]
+[assembly: PostApplicationStartMethod(typeof(TestLibrary.MyStartupCode), "CallMeAfterAppStart")]
+[assembly: ApplicationShutdownMethod(typeof(TestLibrary.MyStartupCode), "CallMeWhenAppEnds")]
 
 namespace TestLibrary
 {
