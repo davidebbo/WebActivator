@@ -39,6 +39,16 @@ namespace WebActivatorTest
         }
 
         [TestMethod]
+        public void TestWebActivatorPreStartMethodsInDesignerModeGetCalled()
+        {
+            ActivationManager.RunPreStartMethods(designerMode: true);
+
+            Assert.IsTrue(TestLibrary.MyStartupCode.StartCalled);
+            Assert.IsFalse(TestLibrary.MyStartupCode.Start2Called);
+            Assert.IsFalse(TestLibrary.MyStartupCode.CallMeAfterAppStartCalled);
+        }
+
+        [TestMethod]
         public void TestWebActivatorPostStartMethodsGetCalled()
         {
             ActivationManager.RunPostStartMethods();

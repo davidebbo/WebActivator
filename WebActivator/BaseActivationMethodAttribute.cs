@@ -52,5 +52,10 @@ namespace WebActivatorEx
             // Invoke it
             method.Invoke(null, null);
         }
+
+        public virtual bool ShouldRunInDesignerMode()
+        {
+            return false;
+        }
     }
 }

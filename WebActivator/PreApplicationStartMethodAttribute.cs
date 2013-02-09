@@ -11,5 +11,13 @@ namespace WebActivatorEx
             : base(type, methodName)
         {
         }
+
+        // Set this to true to have the method run in designer mode (in addition to running at runtime)
+        public bool RunInDesigner { get; set; }
+
+        public override bool ShouldRunInDesignerMode()
+        {
+            return RunInDesigner;
+        }
     }
 }

@@ -4,7 +4,7 @@ using System.Web.Routing;
 using System;
 using WebActivatorEx;
 
-[assembly: PreApplicationStartMethod(typeof(TestLibrary.MyStartupCode), "Start")]
+[assembly: PreApplicationStartMethod(typeof(TestLibrary.MyStartupCode), "Start", RunInDesigner = true)]
 [assembly: PreApplicationStartMethod(typeof(TestLibrary.MyStartupCode), "Start2", Order = 2)]
 [assembly: PreApplicationStartMethod(typeof(TestLibrary.MyStartupCode), "Start3", Order = 1)]
 [assembly: PostApplicationStartMethod(typeof(TestLibrary.MyStartupCode), "CallMeAfterAppStart")]

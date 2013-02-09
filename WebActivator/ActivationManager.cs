@@ -27,7 +27,8 @@ namespace WebActivatorEx
         {
             if (!_hasInited)
             {
-                RunPreStartMethods();
+                // In CBM mode, pass true so that only the methods that have RunInDesigner=true get called
+                RunPreStartMethods(designerMode: HostingEnvironment.InClientBuildManager);
 
                 // Register our module to handle any Post Start methods. But outside of ASP.NET, just run them now
                 if (HostingEnvironment.IsHosted)
@@ -96,9 +97,9 @@ namespace WebActivatorEx
             }
         }
 
-        public static void RunPreStartMethods()
+        public static void RunPreStartMethods(bool designerMode = false)
         {
-            RunActivationMethods<PreApplicationStartMethodAttribute>();
+            RunActivationMethods<PreApplicationStartMethodAttribute>(designerMode);
         }
 
         public static void RunPostStartMethods()
@@ -112,13 +113,17 @@ namespace WebActivatorEx
         }
 
         // Call the relevant activation method from all assemblies
-        private static void RunActivationMethods<T>() where T : BaseActivationMethodAttribute
+        private static void RunActivationMethods<T>(bool designerMode = false) where T : BaseActivationMethodAttribute
         {
             foreach (var assembly in Assemblies.Concat(AppCodeAssemblies))
             {
                 foreach (BaseActivationMethodAttribute activationAttrib in assembly.GetActivationAttributes<T>().OrderBy(att => att.Order))
                 {
-                    activationAttrib.InvokeMethod();
+                    // Don't run it in designer mode, unless the attribute explicitly asks for that
+                    if (!designerMode || activationAttrib.ShouldRunInDesignerMode())
+                    {
+                        activationAttrib.InvokeMethod();
+                    }
                 }
             }
         }
