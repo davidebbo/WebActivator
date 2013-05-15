@@ -81,6 +81,10 @@ Note that normally you would not call these methods explicitly from a web applic
 
 ## Change history
 
+### 2.0.1 (2/9/2013)
+
+* The WebActivator assembly is now signed
+
 ### 1.5.3 (12/20/2012)
 
 Change contributed by @gdoten
