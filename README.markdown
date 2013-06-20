@@ -13,7 +13,7 @@ WebActivator is a [NuGet](http://nuget.org/) package that allows other packages 
 	    <id>MySuperPackage</id>
 	    etc...
 	    <dependencies>
-	      <dependency id="WebActivator" version="1.5" />
+	      <dependency id="WebActivatorEx" version="2.0.0" />
 	    </dependencies>
 	  </metadata>
 	</package>
@@ -26,7 +26,7 @@ Under the folder where your nuspec file is, create a Content\App_Start folder. I
 
 	using System;
 
-	[assembly: WebActivator.PreApplicationStartMethod(
+	[assembly: WebActivatorEx.PreApplicationStartMethod(
 	    typeof($rootnamespace$.App_Start.MySuperPackage), "PreStart")]
 
 	namespace $rootnamespace$.App_Start {
