@@ -81,6 +81,10 @@ Note that normally you would not call these methods explicitly from a web applic
 
 ## Change history
 
+### 2.0.2 (6/19/2013)
+
+* Ignore GetCustomAttributes exceptions to work around https://github.com/davidebbo/WebActivator/issues/12
+
 ### 2.0.1 (2/9/2013)
 
 * The WebActivator assembly is now signed
