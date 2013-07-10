@@ -115,15 +115,16 @@ namespace WebActivatorEx
         // Call the relevant activation method from all assemblies
         private static void RunActivationMethods<T>(bool designerMode = false) where T : BaseActivationMethodAttribute
         {
-            foreach (var assembly in Assemblies.Concat(AppCodeAssemblies))
+            var attribs = Assemblies.Concat(AppCodeAssemblies)
+                                    .SelectMany(assembly => assembly.GetActivationAttributes<T>())
+                                    .OrderBy(att => att.Order);
+
+            foreach (var activationAttrib in attribs)
             {
-                foreach (BaseActivationMethodAttribute activationAttrib in assembly.GetActivationAttributes<T>().OrderBy(att => att.Order))
+                // Don't run it in designer mode, unless the attribute explicitly asks for that
+                if (!designerMode || activationAttrib.ShouldRunInDesignerMode())
                 {
-                    // Don't run it in designer mode, unless the attribute explicitly asks for that
-                    if (!designerMode || activationAttrib.ShouldRunInDesignerMode())
-                    {
-                        activationAttrib.InvokeMethod();
-                    }
+                    activationAttrib.InvokeMethod();
                 }
             }
         }
