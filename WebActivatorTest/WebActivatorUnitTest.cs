@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestLibrary;
+using TestLibrary2;
 using WebActivatorEx;
 
 namespace WebActivatorTest
@@ -11,11 +12,14 @@ namespace WebActivatorTest
         public void TestInit()
         {
             ActivationManager.Reset();
-            MyStartupCode.ExecutedOrder = "";
+            ExecutionLogger.ExecutedOrder = "";
             MyStartupCode.StartCalled = false;
             MyStartupCode.Start2Called = false;
             MyStartupCode.CallMeAfterAppStartCalled = false;
             MyStartupCode.CallMeWhenAppEndsCalled = false;
+
+            MyOtherStartupCode.StartCalled = false;
+            MyOtherStartupCode.Start2Called = false;
         }
 
         [TestMethod]
@@ -71,7 +75,7 @@ namespace WebActivatorTest
         {
             ActivationManager.Run();
             ActivationManager.RunShutdownMethods();
-            Assert.AreEqual("StartStart3Start2CallMeAfterAppStartCallMeWhenAppEnds", MyStartupCode.ExecutedOrder);
+            Assert.AreEqual("StartStart3OtherStartStart2OtherStart2CallMeAfterAppStartCallMeWhenAppEnds", ExecutionLogger.ExecutedOrder);
         }
     }
 }
