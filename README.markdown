@@ -81,6 +81,10 @@ Note that normally you would not call these methods explicitly from a web applic
 
 ## Change history
 
+### 2.0.3 (8/6/2013)
+
+* Make the Order parameter work across multiple assemblies https://github.com/davidebbo/WebActivator/pull/13
+
 ### 2.0.2 (6/19/2013)
 
 * Ignore GetCustomAttributes exceptions to work around https://github.com/davidebbo/WebActivator/issues/12
