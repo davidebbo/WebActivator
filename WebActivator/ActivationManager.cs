@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Security;
 using System.Web;
 using System.Web.Compilation;
+using System.Web.Configuration;
 using System.Web.Hosting;
 
 namespace WebActivatorEx
@@ -27,13 +28,32 @@ namespace WebActivatorEx
         {
             if (!_hasInited)
             {
-                // In CBM mode, pass true so that only the methods that have RunInDesigner=true get called
-                RunPreStartMethods(designerMode: HostingEnvironment.InClientBuildManager);
+                bool _isRunningMono = Type.GetType("Mono.Runtime") != null;
+
+                if (_isRunningMono)
+                {
+                    RunPreStartMethods(designerMode: false);
+                }
+                else
+                {
+                    // In CBM mode, pass true so that only the methods that have RunInDesigner=true get called
+                    RunPreStartMethods(designerMode: (bool)typeof(HostingEnvironment).GetProperty("InClientBuildManager").GetValue(null, null) == true);
+                }
 
                 // Register our module to handle any Post Start methods. But outside of ASP.NET, just run them now
                 if (HostingEnvironment.IsHosted)
                 {
-                    Microsoft.Web.Infrastructure.DynamicModuleHelper.DynamicModuleUtility.RegisterModule(typeof(StartMethodCallingModule));
+                    Type startMethodType = typeof(StartMethodCallingModule);
+
+                    if (_isRunningMono)
+                    {
+                        HttpModuleActionCollection modules = (WebConfigurationManager.GetWebApplicationSection("system.web/httpModules") as HttpModulesSection).Modules;
+                        modules.Add(new HttpModuleAction(startMethodType.FullName, startMethodType.AssemblyQualifiedName));
+                    }
+                    else
+                    {
+                        Microsoft.Web.Infrastructure.DynamicModuleHelper.DynamicModuleUtility.RegisterModule(startMethodType);
+                    }
                 }
                 else
                 {
