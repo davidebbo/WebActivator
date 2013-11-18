@@ -28,16 +28,16 @@ namespace WebActivatorEx
         {
             if (!_hasInited)
             {
-                bool _isRunningMono = Type.GetType("Mono.Runtime") != null;
+                bool isRunningMono = Type.GetType("Mono.Runtime") != null;
 
-                if (_isRunningMono)
+                if (isRunningMono)
                 {
                     RunPreStartMethods(designerMode: false);
                 }
                 else
                 {
                     // In CBM mode, pass true so that only the methods that have RunInDesigner=true get called
-                    RunPreStartMethods(designerMode: (bool)typeof(HostingEnvironment).GetProperty("InClientBuildManager").GetValue(null, null) == true);
+                    RunPreStartMethods(designerMode: IsInClientBuildManager());
                 }
 
                 // Register our module to handle any Post Start methods. But outside of ASP.NET, just run them now
@@ -45,7 +45,7 @@ namespace WebActivatorEx
                 {
                     Type startMethodType = typeof(StartMethodCallingModule);
 
-                    if (_isRunningMono)
+                    if (isRunningMono)
                     {
                         HttpModuleActionCollection modules = (WebConfigurationManager.GetWebApplicationSection("system.web/httpModules") as HttpModulesSection).Modules;
                         modules.Add(new HttpModuleAction(startMethodType.FullName, startMethodType.AssemblyQualifiedName));
@@ -62,6 +62,11 @@ namespace WebActivatorEx
 
                 _hasInited = true;
             }
+        }
+
+        private static bool IsInClientBuildManager()
+        {
+            return HostingEnvironment.InClientBuildManager;
         }
 
         private static IEnumerable<Assembly> Assemblies
