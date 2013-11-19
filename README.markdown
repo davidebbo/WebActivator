@@ -81,6 +81,10 @@ Note that normally you would not call these methods explicitly from a web applic
 
 ## Change history
 
+### 2.0.4 (11/18/2013)
+
+* Fixed to work on Mono https://github.com/davidebbo/WebActivator/pull/15
+
 ### 2.0.3 (8/6/2013)
 
 * Make the Order parameter work across multiple assemblies https://github.com/davidebbo/WebActivator/pull/13
@@ -91,7 +95,7 @@ Note that normally you would not call these methods explicitly from a web applic
 
 ### 2.0.1 (2/9/2013)
 
-* The WebActivator assembly is now signed
+* The WebActivator assembly is now signed (and is now named WebActivatorEx.dll)
 
 ### 1.5.3 (12/20/2012)
 
