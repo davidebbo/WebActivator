@@ -41,7 +41,7 @@ And that's it! Now your code will be called early on when the app starts.
 
 ## Choosing when your code executes
 
-The example above uses the PreApplicationStartMethod attribute, which makes the code run very early on, before global.asax's Application_Start gets too run.
+The example above uses the PreApplicationStartMethod attribute, which makes the code run very early on, before global.asax's Application_Start gets to run.
 
 If that's too early for you, you can instead use the PostApplicationStartMethod attribute, which gets your code called //after// global.asax's Application_Start.
 
