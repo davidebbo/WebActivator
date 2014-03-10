@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2010
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30127.4
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C2257462-7F5F-4C80-B04B-3D48026B109C}"
 	ProjectSection(SolutionItems) = preProject
 		Local.testsettings = Local.testsettings
@@ -19,9 +21,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestLibrary2", "TestLibrary2\TestLibrary2.csproj", "{638765A7-E010-495F-B325-821D735B2121}"
 EndProject
 Global
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = WebActivator.vsmdi
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -84,5 +83,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = WebActivator.vsmdi
 	EndGlobalSection
 EndGlobal
