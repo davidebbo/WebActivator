@@ -81,6 +81,10 @@ Note that normally you would not call these methods explicitly from a web applic
 
 ## Change history
 
+### 2.0.6 (11/24/2014)
+
+* Re-release under Apache 2 license
+
 ### 2.0.5 (3/10/2014)
 
 * Use Retail instead of Debug assembly in NuGet package
