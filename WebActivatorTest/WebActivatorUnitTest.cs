@@ -30,6 +30,21 @@ namespace WebActivatorTest
             Assert.IsTrue(TestLibrary.MyStartupCode.StartCalled);
             Assert.IsTrue(TestLibrary.MyStartupCode.Start2Called);
             Assert.IsTrue(TestLibrary.MyStartupCode.CallMeAfterAppStartCalled);
+            Assert.IsTrue(TestLibrary2.MyOtherStartupCode.StartCalled);
+            Assert.IsTrue(TestLibrary2.MyOtherStartupCode.Start2Called);
+        }
+
+        [TestMethod]
+        public void TestTestLibrary2IsNotScanned()
+        {
+            ActivationManager.SetAssemblyFilter(a => !a.FullName.Contains("TestLibrary2"));
+            ActivationManager.Run();
+
+            Assert.IsTrue(TestLibrary.MyStartupCode.StartCalled);
+            Assert.IsTrue(TestLibrary.MyStartupCode.Start2Called);
+            Assert.IsTrue(TestLibrary.MyStartupCode.CallMeAfterAppStartCalled);
+            Assert.IsFalse(TestLibrary2.MyOtherStartupCode.StartCalled);
+            Assert.IsFalse(TestLibrary2.MyOtherStartupCode.Start2Called);
         }
 
         [TestMethod]

@@ -16,6 +16,7 @@ namespace WebActivatorEx
     {
         private static bool _hasInited;
         private static List<Assembly> _assemblies;
+        private static Func<Assembly, bool> _assemblyFilter = a => true; 
 
         // For unit test purpose
         public static void Reset()
@@ -137,10 +138,21 @@ namespace WebActivatorEx
             RunActivationMethods<ApplicationShutdownMethodAttribute>();
         }
 
+        public static void SetAssemblyFilter(Func<Assembly, bool> filter)
+        {
+            if (filter == null)
+            {
+                throw new ArgumentNullException("filter");
+            }
+
+            _assemblyFilter = filter;
+        }
+
         // Call the relevant activation method from all assemblies
         private static void RunActivationMethods<T>(bool designerMode = false) where T : BaseActivationMethodAttribute
         {
             var attribs = Assemblies.Concat(AppCodeAssemblies)
+                                    .Where(assembly => _assemblyFilter(assembly))
                                     .SelectMany(assembly => assembly.GetActivationAttributes<T>())
                                     .OrderBy(att => att.Order);
 
