@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Security;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Compilation;
 using System.Web.Configuration;
@@ -16,7 +18,7 @@ namespace WebActivatorEx
     {
         private static bool _hasInited;
         private static List<Assembly> _assemblies;
-        private static Func<Assembly, bool> _assemblyFilter = a => true; 
+        private static Func<string, bool> _fileFilter = a => true;
 
         // For unit test purpose
         public static void Reset()
@@ -29,6 +31,8 @@ namespace WebActivatorEx
         {
             if (!_hasInited)
             {
+                DetermineWhatFilesAndAssembliesToScan();
+
                 bool isRunningMono = Type.GetType("Mono.Runtime") != null;
 
                 if (isRunningMono)
@@ -65,6 +69,16 @@ namespace WebActivatorEx
             }
         }
 
+        private static void DetermineWhatFilesAndAssembliesToScan()
+        {
+            var value = ConfigurationManager.AppSettings["webactivator:excludedFilesExpression"];
+            if (value != null)
+            {
+                var fileExpression = new Regex(value.Trim());
+                _fileFilter = file => !fileExpression.IsMatch(file);
+            }
+        }
+
         private static bool IsInClientBuildManager()
         {
             return HostingEnvironment.InClientBuildManager;
@@ -78,7 +92,7 @@ namespace WebActivatorEx
                 {
                     // Cache the list of relevant assemblies, since we need it for both Pre and Post
                     _assemblies = new List<Assembly>();
-                    foreach (var assemblyFile in GetAssemblyFiles())
+                    foreach (var assemblyFile in GetAssemblyFiles().Where(file => _fileFilter(file)))
                     {
                         try
                         {
@@ -138,21 +152,10 @@ namespace WebActivatorEx
             RunActivationMethods<ApplicationShutdownMethodAttribute>();
         }
 
-        public static void SetAssemblyFilter(Func<Assembly, bool> filter)
-        {
-            if (filter == null)
-            {
-                throw new ArgumentNullException("filter");
-            }
-
-            _assemblyFilter = filter;
-        }
-
         // Call the relevant activation method from all assemblies
         private static void RunActivationMethods<T>(bool designerMode = false) where T : BaseActivationMethodAttribute
         {
             var attribs = Assemblies.Concat(AppCodeAssemblies)
-                                    .Where(assembly => _assemblyFilter(assembly))
                                     .SelectMany(assembly => assembly.GetActivationAttributes<T>())
                                     .OrderBy(att => att.Order);
 

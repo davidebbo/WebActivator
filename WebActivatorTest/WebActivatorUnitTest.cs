@@ -1,4 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestLibrary;
 using TestLibrary2;
 using WebActivatorEx;
@@ -35,16 +38,18 @@ namespace WebActivatorTest
         }
 
         [TestMethod]
-        public void TestTestLibrary2IsNotScanned()
+        public void TestSystemMicrosoftAndWebActivatorAssembliesAreIgnored()
         {
-            ActivationManager.SetAssemblyFilter(a => !a.FullName.Contains("TestLibrary2"));
             ActivationManager.Run();
 
-            Assert.IsTrue(TestLibrary.MyStartupCode.StartCalled);
-            Assert.IsTrue(TestLibrary.MyStartupCode.Start2Called);
-            Assert.IsTrue(TestLibrary.MyStartupCode.CallMeAfterAppStartCalled);
-            Assert.IsFalse(TestLibrary2.MyOtherStartupCode.StartCalled);
-            Assert.IsFalse(TestLibrary2.MyOtherStartupCode.Start2Called);
+            // we're using reflection here to avoid changing the API just for the test
+            var assemblies = (List<Assembly>)typeof(ActivationManager)
+                .GetField("_assemblies", BindingFlags.Static | BindingFlags.NonPublic)
+                .GetValue(null);
+
+            Assert.IsFalse(assemblies.Any(a => a.GetName().Name.StartsWith("System")));
+            Assert.IsFalse(assemblies.Any(a => a.GetName().Name.StartsWith("Microsoft")));
+            Assert.IsFalse(assemblies.Any(a => a.GetName().Name.StartsWith("WebActivator")));
         }
 
         [TestMethod]
