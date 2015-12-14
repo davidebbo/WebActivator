@@ -81,6 +81,10 @@ Note that normally you would not call these methods explicitly from a web applic
 
 ## Change history
 
+### 2.1.0 (12/14/2015)
+
+* Add support for `webactivator:excludedFilesExpression` App Setting. https://github.com/davidebbo/WebActivator/issues/28
+
 ### 2.0.6 (11/24/2014)
 
 * Re-release under Apache 2 license
