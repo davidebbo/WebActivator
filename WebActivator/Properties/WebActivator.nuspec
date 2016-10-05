@@ -2,8 +2,8 @@
 <package>
   <metadata>
     <id>$id$</id>
-    <title>WebActivator</title>
-    <version>2.1.0</version>
+    <title>WebActivatorEx</title>
+    <version>2.2.0</version>
     <authors>$author$</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>

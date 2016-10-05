@@ -81,6 +81,16 @@ Note that normally you would not call these methods explicitly from a web applic
 
 ## Change history
 
+### 2.2.0 (10/5/2016)
+
+* Add support for `webactivator:assembliesToScan` App Setting to only scan a fixed list.
+
+e.g.
+
+    <add key="webactivator:assembliesToScan" value="Foo,Bar" />
+
+This overrides the excludedFilesExpression flag
+
 ### 2.1.0 (12/14/2015)
 
 * Add support for `webactivator:excludedFilesExpression` App Setting. https://github.com/davidebbo/WebActivator/issues/28

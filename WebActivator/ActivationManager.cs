@@ -92,19 +92,31 @@ namespace WebActivatorEx
                 {
                     // Cache the list of relevant assemblies, since we need it for both Pre and Post
                     _assemblies = new List<Assembly>();
-                    foreach (var assemblyFile in GetAssemblyFiles().Where(file => _fileFilter(file)))
+
+                    string assembliesToScanString = ConfigurationManager.AppSettings["webactivator:assembliesToScan"];
+                    if (assembliesToScanString != null)
                     {
-                        try
+                        foreach (string assemblyName in assembliesToScanString.Split(','))
                         {
-                            // Ignore assemblies we can't load. They could be native, etc...
-                            _assemblies.Add(Assembly.LoadFrom(assemblyFile));
+                            _assemblies.Add(Assembly.Load(assemblyName));
                         }
-                        catch (Win32Exception) { }
-                        catch (ArgumentException) { }
-                        catch (FileNotFoundException) { }
-                        catch (PathTooLongException) { }
-                        catch (BadImageFormatException) { }
-                        catch (SecurityException) { }
+                    }
+                    else
+                    {
+                        foreach (var assemblyFile in GetAssemblyFiles().Where(file => _fileFilter(file)))
+                        {
+                            try
+                            {
+                                // Ignore assemblies we can't load. They could be native, etc...
+                                _assemblies.Add(Assembly.LoadFrom(assemblyFile));
+                            }
+                            catch (Win32Exception) { }
+                            catch (ArgumentException) { }
+                            catch (FileNotFoundException) { }
+                            catch (PathTooLongException) { }
+                            catch (BadImageFormatException) { }
+                            catch (SecurityException) { }
+                        }
                     }
                 }
 
