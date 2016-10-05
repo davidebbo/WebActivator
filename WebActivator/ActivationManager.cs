@@ -127,7 +127,7 @@ namespace WebActivatorEx
         {
             get
             {
-                // Return an empty list if we;re not hosted or there aren't any
+                // Return an empty list if we're not hosted or there aren't any
                 if (!HostingEnvironment.IsHosted || !_hasInited || BuildManager.CodeAssemblies == null)
                 {
                     return Enumerable.Empty<Assembly>();
